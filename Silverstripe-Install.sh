@@ -58,7 +58,7 @@ sudo systemctl reload apache2;
 # Create Database
 sudo mysql --execute='create database silverstripe;';
 sudo mysql --execute="create user 'silverstripe'@'localhost' identified by 'silverstripe-password1';";
-sudo mysql --execute="grant all privileges on *.* to 'silverstripe'@'localhost';";
+sudo mysql --execute="grant all privileges on silverstripe.* to 'silverstripe'@'localhost';";
 
 # Create Silverstripe environment variable
 touch /var/www/html/silverstripe/.env;
