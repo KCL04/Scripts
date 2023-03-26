@@ -15,10 +15,10 @@ sudo chown -R $svc_acct /var/www/html;
 
 # Install OpenEMR
 wget https://sourceforge.net/projects/openemr/files/OpenEMR%20Current/7.0.0.2/openemr-7.0.0.tar.gz/download;
-mv download download.tar.gz
-tar -pxvzf download.tar.gz
-mv openemr-7.0.0 /var/www/html/openemr
-rm download.tar.gz
+mv download download.tar.gz;
+tar -pxvzf download.tar.gz;
+mv openemr-7.0.0 /var/www/html/openemr;
+rm download.tar.gz;
 
 # Modify php.ini file
 
