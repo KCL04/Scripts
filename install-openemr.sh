@@ -63,9 +63,9 @@ sudo a2dissite 000-default;
 sudo systemctl reload apache2;
 
 # Create Database
-sudo mysql --execute='create database openemr;';
-sudo mysql --execute="create user 'openemr'@'localhost' identified by 'openemr-password1';";
-sudo mysql --execute="grant all privileges on openemr.* to 'openemr'@'localhost';";
+sudo mysql --execute='create database openemr;'; #default databasename is openemr
+sudo mysql --execute="create user 'openemer'@'localhost' identified by '<INSERT YOUR PASSWORD HERE>';"; #default username is openemr
+sudo mysql --execute="grant all privileges on openemr.* to 'openemr'@'localhost';"; #if database name and username is different, update this line.
 
 # Change ownership to www-data
 sudo chown -R www-data /var/www/html/openemr;
