@@ -56,9 +56,9 @@ sudo a2dissite 000-default;
 sudo systemctl reload apache2;
 
 # Create Database
-sudo mysql --execute='create database silverstripe;';
-sudo mysql --execute="create user 'silverstripe'@'localhost' identified by 'silverstripe-password1';";
-sudo mysql --execute="grant all privileges on silverstripe.* to 'silverstripe'@'localhost';";
+sudo mysql --execute='create database silverstripe;'; #default database name is silverstripe
+sudo mysql --execute="create user 'silverstripe'@'localhost' identified by '<INSERT YOUR PASSWORD HERE>';"; #default username is silverstripe, update password
+sudo mysql --execute="grant all privileges on silverstripe.* to 'silverstripe'@'localhost';"; #if username or database name is modified, update this line.
 
 # Create Silverstripe environment variable
 touch /var/www/html/silverstripe/.env;
@@ -66,10 +66,10 @@ echo SS_DATABASE_CLASS=\"MySQLDatabase\" >> /var/www/html/silverstripe/.env;
 echo SS_DATABASE_NAME=\"silverstripe\" >> /var/www/html/silverstripe/.env;
 echo SS_DATABASE_SERVER=\"localhost\" >> /var/www/html/silverstripe/.env;
 echo SS_DATABASE_USERNAME=\"silverstripe\" >> /var/www/html/silverstripe/.env;
-echo SS_DATABASE_PASSWORD=\"silverstripe-password1\" >> /var/www/html/silverstripe/.env;
+echo SS_DATABASE_PASSWORD=\"<INSERT DATABASE PASSWORD HERE>\" >> /var/www/html/silverstripe/.env; #insert password
 echo SS_DEFAULT_ADMIN_USERNAME=\"silverstripe-admin\" >> /var/www/html/silverstripe/.env;
-echo SS_DEFAULT_ADMIN_PASSWORD=\"silverstripe-admin1-password!\" >> /var/www/html/silverstripe/.env;
-echo SS_ENVIRONMENT_TYPE=\"live\" >> /var/www/html/silverstripe/.env;
+echo SS_DEFAULT_ADMIN_PASSWORD=\"<ADMIN PASSWORD HERE>\" >> /var/www/html/silverstripe/.env; #insert password
+echo SS_ENVIRONMENT_TYPE=\"live\" >> /var/www/html/silverstripe/.env; # can be modified to dev
 
 # Build Silverstripe
 /var/www/html/silverstripe/vendor/bin/sake dev/build;
