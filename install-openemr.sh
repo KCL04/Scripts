@@ -8,6 +8,7 @@ svc_acct="$USER";
 
 # Install dependencies
 sudo apt-get update;
+sudo apt-get upgrade;
 sudo apt-get install apache2 mysql-server libapache2-mod-php libtiff-tools php8.1 php8.1-mysql php8.1-cli php8.1-gd php8.1-xsl php8.1-curl php8.1-soap imagemagick php8.1-zip php8.1-ldap php8.1-mbstring;
 
 # Change ownership to current user
