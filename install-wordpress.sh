@@ -8,6 +8,7 @@ svc_acct="$USER";
 
 # Install dependencies
 sudo apt-get update;
+sudo apt-get upgrade;
 sudo apt-get install mysql-server apache2 php php-mysql;
 
 # Change ownership to current user
