@@ -8,6 +8,7 @@ svc_acct="$USER";
 
 # Install dependencies
 sudo apt-get update;
+sudo apt-get upgrade;
 sudo apt-get install -y software-properties-common;
 sudo add-apt-repository -y ppa:ondrej/php;
 sudo add-apt-repository -y ppa:ondrej/apache2;
