@@ -11,9 +11,11 @@ import argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-p','--path',help='Path to Swagger file. Expected JSON format; OAS 1.0',required=True)
+parser.add_argument('-s','--sample',help='Sample dummy data. Default is 690a2e2f-a1ff-40fd-9bae-8d271091d886', default='690a2e2f-a1ff-40fd-9bae-8d271091d886') 
 args = parser.parse_args()
 
 swagger_file = args.path
+sample_data = args.sample
 
 results_df = pd.DataFrame(columns=['Method', 'Path', 'Body', 'Response'])
 
@@ -54,7 +56,7 @@ def replace_path_parameters(path, body):
             path = path.replace('{' + parameter + '}', str(body[matching_parameters[0]]), 1)
         else:
             # If matching parameter is not found in body, replace it with a sample value
-            path = path.replace('{' + parameter + '}', '690a2e2f-a1ff-40fd-9bae-8d271091d996')
+            path = path.replace('{' + parameter + '}', sample_data)
 
     return path
 
