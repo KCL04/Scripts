@@ -14,7 +14,7 @@ sudo apt-get install mysql-server apache2 php php-mysql;
 # Change ownership to current user
 sudo chown -R $svc_acct /var/www/html;
 
-# Install OpenEMR
+# Install Wordpress
 wget https://wordpress.org/latest.zip;
 mv latest.zip /var/www/html/;
 unzip /var/www/html/latest.zip -d /var/www/html/;
