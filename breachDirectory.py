@@ -10,12 +10,12 @@ parser.add_argument('-f', '--function', help="Function type: auto, sources, pass
 group = parser.add_mutually_exclusive_group(required=True)
 group.add_argument('-t', '--term', help="Search Term.", required=False)
 group.add_argument('-l', '--list', help="Search using a list. One search term per row.", required=False)
-parser.add_argument('-d', '--dehash', help="Dehash the password", required=False)
+parser.add_argument('-d', '--dehash', action='store_true', help="Dehash the password", required=False)
 parser.add_argument('-o', '--output', help="Output file to store results.", required=False)
 parser.add_argument('-v', '--verbose', action='store_true', help="Verbose mode to show status of the script.")
 parser.add_argument('-w', '--workers', type=int, default=5, help="Number of worker threads for multithreaded processing. Default is 5.")
 parser.add_argument('-r', '--retries', type=int, default=3, help="Number of retry attempts for failed requests. Default is 3.")
-parser.add_argument('-k', '--key', help="API key for BreachedDirectory.", required=True)
+parser.add_argument('-k', '--key', required=True)
 
 args = parser.parse_args()
 
@@ -61,7 +61,12 @@ def process_line(line):
                     for result in data['result']:
                         email = result.get('email', 'N/A')
                         password = result.get('password', 'N/A')
-                        output_data.append(f"Email: {email}\nHashed password: {password}\n")
+                        hash_value = result.get('hash', 'N/A')
+                        if args.dehash and hash_value != 'N/A':
+                            dehashed_password = dehash_password(hash_value)
+                            output_data.append(f"Email: {email}\nHashed password: {password}\nHash Value: {hash_value}\nDehashed Password: {dehashed_password}\n")
+                        else:
+                            output_data.append(f"Email: {email}\nHashed password: {password}\nHash Value: {hash_value}\n")
                 else:
                     output_data.append("No results found\n")
             else:
@@ -71,6 +76,15 @@ def process_line(line):
             retry_count += 1
             time.sleep(1)  # Wait for 1 second before retrying
     return "Request failed\n"
+
+def dehash_password(hash_value):
+    querystring = {
+        'func': 'dehash',
+        'term': hash_value
+    }
+    data = send_request(querystring)
+    return data['found']
+    
 
 try:
     if args.list:
@@ -97,7 +111,12 @@ try:
                     for result in data['result']:
                         email = result.get('email', 'N/A')
                         password = result.get('password', 'N/A')
-                        output_data.append(f"Email: {email}\nHashed password: {password}\n")
+                        hash_value = result.get('hash', 'N/A')
+                        if args.dehash and hash_value != 'N/A':
+                            dehashed_password = dehash_password(hash_value)
+                            output_data.append(f"Email: {email}\nHashed password: {password}\nHash Value: {hash_value}\nDehashed Password: {dehashed_password}\n")
+                        else:
+                            output_data.append(f"Email: {email}\nHashed password: {password}\nHash Value: {hash_value}\n")
                 else:
                     output_data.append("No results found\n")
             else:
@@ -110,3 +129,4 @@ try:
                 print("\n".join(output_data))
 except KeyboardInterrupt:
     print("User interrupted execution.")
+
